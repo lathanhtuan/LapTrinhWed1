@@ -31,8 +31,8 @@ $currentUser = 1;
 	<h3><p class="text-info"> Thông tin chi tiết đơn hàng </p> </h3>
 </div>
 <div>
-	<table class="table">
-		<thead class="thead-light">
+	<table class="table" >
+		<thead class="thead-light" >
 		<tr>
 		  <th scope="col">Mã Đơn Hàng</th>
 		  <th scope="col">Tên sản phẩm</th>
@@ -46,4 +46,5 @@ $currentUser = 1;
 	  </tbody>
 	</table>
 </div>
+
 <?php include 'footer.php'; ?>
