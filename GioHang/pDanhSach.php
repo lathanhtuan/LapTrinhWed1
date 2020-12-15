@@ -60,39 +60,3 @@ $currentUser = 1;
 	</form>
 </div>
 <?php include 'footer.php'; ?>
-<!--
-		<tr>
-		  <th scope="row">1</th>
-		  <td>Mark</td>
-		  <td>Otto</td>
-		  <td>@mdo</td>
-		</tr>
-		<tr>
-		  <th scope="row">2</th>
-		  <td>Jacob</td>
-		  <td>Thornton</td>
-		  <td>@fat</td>
-		</tr>
-		<tr>
-		  <th scope="row">3</th>
-		  <td>
-			<button type="button" class="btn btn-outline-primary">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
-				</svg>
-			</button>
-			<button type="button" class="btn btn-outline-primary">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"></path>
-				</svg>
-			</button>
-			<button type="button" class="btn btn-outline-primary">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"></path>
-				</svg>
-			</button>
-		  </td>
-		  <td>the Bird</td>
-		  <td>@twitter</td>
-		</tr>
-		-->
