@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2020 at 10:12 AM
+-- Generation Time: Dec 22, 2020 at 02:06 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -33,7 +33,9 @@ CREATE TABLE `dondathang` (
   `NgayLap` datetime DEFAULT NULL,
   `TongThanhTien` int(11) DEFAULT NULL,
   `MaTaiKhoan` int(11) NOT NULL,
-  `MaTinhTrang` int(11) NOT NULL
+  `MaTinhTrang` int(11) NOT NULL,
+  `TenKhachHang` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DiaChiGiaoHang` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -221,7 +223,7 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`MaTaiKhoan`, `TenDangNhap`, `MatKhau`, `TenHienThi`, `DiaChi`, `DienThoai`, `Email`, `BiXoa`, `MaLoaiTaiKhoan`) VALUES
-(1, 'ndhuy', 'ndhuy', 'Đức Huy', '227 - Nguyễn Văn Cừ - Q.5', '01234567890', 'ndhuy@gmail.com', 0, 1),
+(1, 'ndhuy', 'ndhuy', 'Đức Huy1234', '227 - Nguyễn Văn Cừ - Q.5', '01234567890', 'ndhuy@gmail.com', 0, 1),
 (5, 'admin', 'admin', 'Admin website', 'Baby Shop', '0909123456', 'admin@babyshop.vn', 0, 2);
 
 -- --------------------------------------------------------
@@ -240,10 +242,11 @@ CREATE TABLE `tinhtrang` (
 --
 
 INSERT INTO `tinhtrang` (`MaTinhTrang`, `TenTinhTrang`) VALUES
-(1, 'Đặt hàng'),
+(1, 'Chờ xử lý'),
 (2, 'Đang giao hàng'),
-(3, 'Thanh toán'),
-(4, 'Hủy');
+(3, 'Đang xử lý'),
+(4, 'Hoàn thành'),
+(5, 'Huỷ');
 
 --
 -- Indexes for dumped tables
@@ -362,13 +365,13 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `MaTaiKhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `MaTaiKhoan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tinhtrang`
 --
 ALTER TABLE `tinhtrang`
-  MODIFY `MaTinhTrang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `MaTinhTrang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -406,7 +409,7 @@ ALTER TABLE `sanpham`
 -- Constraints for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  ADD CONSTRAINT `fk_TaiKhoan_LoaiTaiKhoan` FOREIGN KEY (`MaLoaiTaiKhoan`) REFERENCES `loaitaikhoan` (`MaLoaiTaiKhoan`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_TaiKhoan_LoaiTaiKhoan` FOREIGN KEY (`MaLoaiTaiKhoan`) REFERENCES `loaitaikhoan` (`MaLoaiTaiKhoan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
