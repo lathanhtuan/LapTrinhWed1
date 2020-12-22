@@ -58,6 +58,10 @@
                     <li class="nav-item col-md-2">
                         <a class="nav-link text-success font-weight-bold"href="Profile.php">Sản Phẩm</a>     
                     </li>
+                <!--TranDuyQuang link đến giỏ hàng -->
+                    <li class="nav-item col-md-2">
+                        <a class="nav-link text-success font-weight-bold"href="/GioHang/index.php">Giỏ hàng</a>     
+                    </li>
                    
                     <li class="nav-item col-md-4">
                         <a class="nav-link text-success font-weight-bold " href="">Xem danh sách các sản phẩm đã Yêu thích</a>     
