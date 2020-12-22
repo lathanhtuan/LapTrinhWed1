@@ -60,7 +60,7 @@
                     </li>
                 <!--TranDuyQuang link đến giỏ hàng -->
                     <li class="nav-item col-md-2">
-                        <a class="nav-link text-success font-weight-bold"href="/GioHang/index.php">Giỏ hàng</a>     
+                        <a class="nav-link text-success font-weight-bold"href="/GioHang/pDanhSach.php">Giỏ hàng</a>     
                     </li>
                    
                     <li class="nav-item col-md-4">
