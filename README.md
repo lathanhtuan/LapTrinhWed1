@@ -6,3 +6,5 @@
 
 22/12/2020 18600097 đã sửa lại giao diện người dùng và trang chủ đầy đủ hơn,và thêm phần cập nhật ảnh đại diện cho trang cá nhân ạ
 
+22/12/2020 1660473 Update CSDL, thêm chức năng admin (Demo quản lý tài khoản)
+
