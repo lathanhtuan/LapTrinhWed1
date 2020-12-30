@@ -1,9 +1,9 @@
-<?php
+<!-- <?php
     class DataProvider 
     {
         public static function ExecuteQuery($sql)
         {
-            $connection = mysqli_connect('localhost:3307', 'root', '', '123456')
+            $connection = mysqli_connect('localhost:3306', 'root', '', '123456')
             or 
                 die ("couldn't connect to localhost");
 
@@ -23,4 +23,4 @@
             echo '</script>';
         }
     }
-?>
+?> -->

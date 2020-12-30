@@ -3,20 +3,20 @@
 
     $title = 'Đăng nhập';
 
-    if(isset($_POST['email']) && isset($_POST['password'])){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $user = findUserByemail($email);
-
+    if(isset($_POST['TenDangNhap']) && isset($_POST['MatKhau'])){
+        
+        $username = $_POST['TenDangNhap'];
+        $password = $_POST['MatKhau'];   
+        $user = findUserByUsername($username);
+                
         if(!$user){
             $error = 'Không tìm thấy tài khoản!';
         } else {
-            if(!password_verify($password,$user['password'])){
+            if(password_verify($password,$user['MatKhau'])){
                 
-                $error = 'Password incorrect';
+                $error = 'Mật khẩu không đúng';
             } else {
-                $_SESSION['userId'] = $user['id'];
+                $_SESSION['userId'] = $user['MaTaiKhoan'];
                 header('Location:index.php');
                 exit();
             }
@@ -35,25 +35,24 @@
 </div>
 <?php else: ?>
 <form action="login.php" method="POST">
-<div class="form-group col-sm-6">
-        <label  for="email">Email</label>
-        
-        <input type="text" name="email" id="email" class="form-control" placeholder="Enter email" required>
+<div class="form-group">
+        <label  for="TenDangNhap">Tên đăng nhập</label>       
+        <input type="text" name="TenDangNhap" id="TenDangNhap" class="form-control" required>
     </div>
-    <div class="form-group col-sm-6">
-        <label for="password">PassWord</label>
-        <input type="password" name="password" id="password" class="form-control " placeholder="Enter password" required>
+    <div class="form-group">
+        <label for="MatKhau">Mật khẩu</label>
+        <input type="password" name="MatKhau" id="MatKhau" class="form-control" required>
     </div>
-    <div class="checkbox">
+    <!-- <div class="checkbox">
 
     <label>
 
         <input type="checkbox"> Nhớ tài khoản
 
-    </label>
+    </label> -->
 
 </div>
-    <button button type="submit" class="btn btn-success btn-lg pull-right ">Đăng nhập</button>
+<button button type="submit" class="btn btn-primary">Đăng nhập</button>
 </form>
 <?php endif; ?>
 <?php include 'footer.php'; ?>

@@ -42,6 +42,9 @@
 </div> -->
 
                     <?php if ($currentUser): ?>
+                        <!-- <?php if ($currentUser): ?>
+                            <?php else: ?>
+                            <?php endif; ?> -->
                     <!-- <li class="nav-item col-md-4<?php echo $title == 'Home' ? 'active' : ''; ?>">
                     <nav class="nav nav-tabs">
                         <a class="nav-link text-primary font-weight-bold "data-toggle="tab"
@@ -59,9 +62,9 @@
                         <a class="nav-link text-success font-weight-bold"href="Profile.php">Sản Phẩm</a>     
                     </li>
                 <!--TranDuyQuang link đến giỏ hàng -->
-                    <li class="nav-item col-md-2">
+                    <!-- <li class="nav-item col-md-2">
                         <a class="nav-link text-success font-weight-bold"href="/GioHang/pDanhSach.php">Giỏ hàng</a>     
-                    </li>
+                    </li> -->
                    
                     <li class="nav-item col-md-4">
                         <a class="nav-link text-success font-weight-bold " href="">Xem danh sách các sản phẩm đã Yêu thích</a>     

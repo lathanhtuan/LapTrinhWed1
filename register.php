@@ -2,24 +2,30 @@
     require_once 'init.php';
 
     $title = 'Đăng ký';
-
-    if(isset($_POST['email']) && isset($_POST['password'])){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        $user = findUserByemail($email);
+    if(isset($_POST['TenDangNhap'])&& isset($_POST['MatKhau'])
+    && isset($_POST['TenHienThi']) && isset($_POST['DiaChi']) 
+    && isset($_POST['DienThoai']) && isset($_POST['Email'])){
+        $username = $_POST['TenDangNhap'];
+        $password = $_POST['MatKhau'];
+        $name=$_POST['TenHienThi'];
+        $add= $_POST['DiaChi'];
+        $tel= $_POST['DienThoai'];
+        $mail= $_POST['Email'];
+        $bx=0;
+        $ml=3;
+        $user = findUserByUsername($username);
 
         if($user){
             $error = 'Tài khoản đã tồn tại';
         } else {
-                $user= createUser($email,password_hash($password,PASSWORD_DEFAULT));
-                $_SESSION['userId'] = $user['id'];
+                $user= createUser($username,password_hash($password,PASSWORD_DEFAULT),$name,$add, $tel, $mail,$bx,$ml);
+                echo "<h2>" . $password . "</h2>";
+                $_SESSION['userId'] = $user['MaTaiKhoan'];
                 header('Location:index.php');
                 exit();
             
         }
     }
-
     
 ?>
 
@@ -32,15 +38,39 @@
 </div>
 <?php else: ?>
      
-<form method="POST">
-<div class="form-group col-sm-6" >
+<form  method="POST">
+<div class="form-group">
+        <label for="TenDangNhap">Tên đăng nhập</label>
+        <input type="text" name="TenDangNhap" id="TenDangNhap" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="MatKhau">Mật khẩu</label>
+        <input type="password" name="MatKhau" id="MatKhau" class="form-control" required>
+    </div>
+    <div class="form-group" >
+        <label for="TenHienThi">Họ và tên của bạn</label>                    
+        <input type="text" name="TenHienThi" id="TenHienThi" class="form-control" required>                                         
+    </div>
+    <div class="form-group">
+        <label for="DiaChi" class="control-label">Địa chỉ<span style="color: red;"> *</span></label>            
+        <input type="text" class="form-control"name="DiaChi" id="DiaChi" required >                                 
+    </div>
+    <div class="form-group">
+    <label for="DienThoai" class="control-label">Số điện thoại<span style="color: red;"> *</span></label>                     
+    <input type="text" class="form-control" pattern="[0-9]{10,11}" title="Số điện thoại phải là số 0-9 và từ 10-11 kí tự!"name="DienThoai" id="DienThoai" required >                                 
+    </div>
+    <div class="form-group ">                 
+        <label for="Email" class="control-label">Email<span style="color: red"> *</span></label>                   
+        <input type="email" class="form-control" id="Email" name="Email" required>
+    </div>      
+<!-- <div class="form-group col-sm-6" >
                     <span class="err" id="eHoTen" ></span>
                     <div>
-                        <label for="txtHoTen">Họ và tên của bạn</label>                    
-                        <input type="text" name="txtHoTen" id="txtHoTen" class="form-control" placeholder="Họ Và Tên" required>                       
+                        <label for="TenHienThi">Họ và tên của bạn</label>                    
+                        <input type="text" name="TenHienThi" id="TenHienThi" class="form-control" placeholder="Họ Và Tên" required>                       
                     </div>
-</div>
-<div class="form-group col-sm-8">
+</div> -->
+<!-- <div class="form-group col-sm-8">
                     <label for="txtNgaySinh">Ngày sinh</label>
                     <div class="col-md-6" >
                     <tr>                      
@@ -144,13 +174,13 @@
                         </tr>
 
                     </div>
-                </div> 
-                <div class="form-group col-md-6 ">
-                    <label for="txtThanhPho" class="control-label">Nơi bạn sống?</label>
+                </div>  -->
+                <!-- <div class="form-group col-md-6 ">
+                    <label for="DiaChi" class="control-label">Nơi bạn sống?</label>
                     <div class="col-md-9" >
                     <tr>                      
                         <td>
-                        <select name="ThanhPho" id="ThanhPho" class="form-control">
+                        <select name="DiaChi" id="DiaChi" class="form-control">
                             <option value="-1">--Chọn thành phố--</option>
                             <option value="1">Hà Nội</option>
                             <option value="2">Hải Phòng</option>
@@ -166,27 +196,37 @@
                         </td>
                         </tr>
                     </div>
-                </div>  
+                </div>   -->
+                <!-- <div class="form-group col-sm-6">
+                    <span class="err" id="eDiaChi"></span>
+                    <div>
+                        <label for="DiaChi" class="control-label">Địa chỉ<span style="color: red;"> *</span></label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control"
+                                name="DiaChi" id="DiaChi" placeholder="Địa chỉ" >
+                        </div>
+                    </div>
+                 </div>
                 <div class="form-group col-sm-6">
                     <span class="err" id="eDienThoai"></span>
                     <div>
-                        <label for="txtDienThoai" class="control-label">Số điện thoại<span style="color: red;"> *</span></label>
+                        <label for="DienThoai" class="control-label">Số điện thoại<span style="color: red;"> *</span></label>
                         <div class="col-md-9">
                             <input type="text" class="form-control" pattern="[0-9]{10,11}" title="Số điện thoại phải là số 0-9 và từ 10-11 kí tự!" 
-                                name="txtDienThoai" id="txtDienThoai" placeholder="Số điện thoại..." >
+                                name="DienThoai" id="DienThoai" placeholder="Số điện thoại..." >
                         </div>
                     </div>
                  </div>
                  <div class="form-group col-sm-6">
                     <span class="err" id="eTaiKhoan"></span>
                     <div>
-                        <label for="txtTaiKhoan" class="control-label">Tên đăng nhập<span style="color: red"> *</span></label>
+                        <label for="TenDangNhap" class="control-label">Tên đăng nhập<span style="color: red"> *</span></label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control"  name="txtTaiKhoan" id="txtTaiKhoan" placeholder="Tên đăng nhập...">
+                            <input type="text" class="form-control"  name="TenDangNhap" id="TenDangNhap" placeholder="Tên đăng nhập...">
                         </div>
                     </div>
-                 </div>
-                 <div class="form-group col-sm-6">
+                 </div> -->
+                 <!-- <div class="form-group col-sm-6">
                     <span class="err" id="eMatKhau"></span>
                     <div>
                         <label for="matkhau" class="control-label">Mật khẩu<span style="color: red"> *</span></label>
@@ -209,36 +249,28 @@
                             </div>
                         </div>
                     </div>
+                 </div> -->
+                 <!-- <div class="form-group col-sm-6">
+                    <span class="err" id="MatKhau" style="color:red"></span> 
+                    <div>
+                        <label for="MatKhau" class="control-label">Mật khẩu<span style="color: red"> *</span></label>
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" id="MatKhau"
+                            name="MatKhau"
+                             placeholder="Nhập mật khẩu...">
+                        </div>
+                    </div>
                  </div>
                  <div class="form-group col-sm-6">
-                    <span class="err" id="eXNMatKhau" style="color:red"></span> 
+                    <span class="err" id ="Email" style="color:red"></span>
                     <div>
-                        <label for="txtXNMatKhau" class="control-label">Xác nhận mật khẩu<span style="color: red"> *</span></label>
+                        <label for="Email" class="control-label">Email<span style="color: red"> *</span></label>
                         <div class="col-md-9">
-                            <input type="password" class="form-control" id="txtXNMatKhau" placeholder="Xác nhận mật khẩu...">
+                            <input type="email" class="form-control" id="Email" name="Email" placeholder="Email...">
                         </div>
                     </div>
-                 </div>
-                 <div class="form-group col-sm-6">
-                    <span class="err" id ="eEmail" style="color:red"></span>
-                    <div>
-                        <label for="txtEmail" class="control-label">Email<span style="color: red"> *</span></label>
-                        <div class="col-md-9">
-                            <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email...">
-                        </div>
-                    </div>
-                 </div>
-
-                 <div class="form-group col-sm-6">               
-                    <span class="err" id ="eMaKiemTra"></span>
-                    <div>               
-                        <label for="txtMaKiemTra" class=" control-label">Nhập mã xác nhận<span style="color: red"> *</span></label>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" id="txtMaKiemTra" name="txtMaKiemTra" placeholder="Nhập mã kiểm tra...">
-                        </div>
-                    </div>
-                 </div>           
-<button button type="submit" class="btn btn-success btn-lg pull-right ">Đăng Kí</button>
+                 </div>                         -->
+<button button type="submit" class="btn btn-primary">Đăng Kí</button>
 </form>
 <?php endif; ?>
 <?php include 'footer.php'; ?>
