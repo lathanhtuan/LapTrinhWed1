@@ -17,4 +17,7 @@ require_once 'functions.php';
 
 //Lay User hien tai
 $currentUser = getCurrentUser();
+
+
+
 ?>

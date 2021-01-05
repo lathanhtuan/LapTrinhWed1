@@ -206,7 +206,7 @@ function DSGioHang( $userid)
 {
 	global $db;
 	$count =1;
-	$stmt = $db->prepare('SELECT sp.TenSanPham as tensp,sp.GiaSanPham as gia, gh.SoLuong as soluong FROM sanpham sp, giohang gh WHERE gh.MaNguoiDung = ? and sp.MaSanPham = gh.MaSanPham');
+	$stmt = $db->prepare('SELECT sp.TenSanPham as tensp, sp.GiaSanPham as gia, gh.SoLuong as soluong, gh.MaSanPham as masp FROM sanpham sp, giohang gh WHERE gh.MaNguoiDung = ? and sp.MaSanPham = gh.MaSanPham');
 	$stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$stmt->execute(array($userid));
 	$resultSet = $stmt->fetchAll();
@@ -220,21 +220,21 @@ function DSGioHang( $userid)
 	<td>' .$row["gia"].'</td>
 	<td>' .$row["soluong"].'</td>
 			  <td>
-			<button type="button" class="btn btn-outline-primary">
+			<a href="xlCapNhatGioHang.php?c=1&id='.$row["masp"].'" class="btn btn-outline-primary" role="button">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
 				</svg>
-			</button>
-			<button type="button" class="btn btn-outline-primary">
+			</a>
+			<a href="xlCapNhatGioHang.php?c=2&id='.$row["masp"].'" class="btn btn-outline-primary" role="button">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"></path>
 				</svg>
-			</button>
-			<button type="button" class="btn btn-outline-primary">
+			</a>
+			<a href="xlCapNhatGioHang.php?c=3&id='.$row["masp"].'" class="btn btn-outline-primary" role="button">
 				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"></path>
 				</svg>
-			</button>
+			</a>
 		  </td>
 	</tr>
 	';
@@ -258,13 +258,88 @@ function TongTien( $userid)
 	echo ''.$tien.'';
 	
 }
-
-function DSDonHang( $userid)
+//Them so luong san pham trong gio hang
+function ThemSoLuong($userid, $id)
 {
-	/*
+	global $db;
+	$stmt = $db->prepare("UPDATE giohang SET SoLuong=SoLuong+1 WHERE MaNguoiDung=? and MaSanPham=?");
+	$stmt->execute(array($userid,$id));
+
+}
+//Tru so luong san pham trong gio hang
+function TruSoLuong($userid, $id)
+{
+	global $db;
+	$stmt = $db->prepare("UPDATE giohang SET SoLuong=SoLuong-1 WHERE MaNguoiDung=? and MaSanPham=?");
+	$stmt->execute(array($userid,$id));
+	//soluong =0 thi xoa san pham trong gio hang
+	$stmt = $db->prepare('SELECT gh.SoLuong as soluong from giohang gh where MaNguoiDung=? and MaSanPham=?');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$stmt->execute(array($userid,$id));
+	$resultSet = $stmt->fetchAll();
+	foreach ($resultSet as $row) 
+	{
+		if($row["soluong"]==0)
+		{
+			$stmt = $db->prepare("DELETE from giohang WHERE MaNguoiDung=? and MaSanPham=?");
+			$stmt->execute(array($userid,$id));
+		}
+		
+	}
+
+}
+//Xoa san pham trong gio hang
+function XoaSoLuong($userid, $id)
+{
+	global $db;
+	$stmt = $db->prepare("DELETE from giohang WHERE MaNguoiDung=? and MaSanPham=?");
+	$stmt->execute(array($userid,$id));
+}
+//button dat hang
+function DatHang($userid, $ten, $diachi, $sdt)
+{
+	global $db;
+	//Tong tien
+	$tien =0;
+	$stmt = $db->prepare('SELECT sp.TenSanPham as tensp,sp.GiaSanPham as gia, gh.SoLuong as soluong FROM sanpham sp, giohang gh WHERE gh.MaNguoiDung = ? and sp.MaSanPham = gh.MaSanPham');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$stmt->execute(array($userid));
+	$resultSet = $stmt->fetchAll();
+	foreach ($resultSet as $row) 
+	{
+		$tien += $row["gia"] * $row["soluong"];
+	}
+	//them Don Dat hang
+	$stmt = $db->prepare("INSERT into dondathang(NgayLap,TongThanhTien,MaTaiKhoan,MaTinhTrang,TenKhachHang,DiaChiGiaoHang,DienThoai) values( CURRENT_TIMESTAMP(),?,?,1,?,?,?)");
+	$stmt->execute(array($tien,$userid,$ten,$diachi,$sdt));
+	//insert san pham vao don dat hang
+	$stmt = $db->prepare('SELECT MaDonDatHang as madondat from dondathang where MaTaiKhoan = ? GROUP BY MaDonDatHang ORDER BY MaDonDatHang DESC LIMIT 1');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$stmt->execute(array($userid));
+	$resultSet = $stmt->fetchAll();
+	foreach ($resultSet as $row) 
+	{
+		$stmt = $db->prepare('SELECT gh.MaSanPham as masp , gh.SoLuong as soluong FROM  giohang gh WHERE gh.MaNguoiDung = ?');
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$stmt->execute(array($userid));
+		$resultSet1 = $stmt->fetchAll();
+		foreach ($resultSet1 as $row1) 
+		{
+			$stmt = $db->prepare("INSERT into dondathang_sanpham(MaDonDatHang,MaSanPham,SoLuong) values(?,?,?)");
+			$stmt->execute(array($row["madondat"],$row1["masp"],$row1["soluong"]));
+		}
+	}
+
+	//Xoa san pham trong gio hang
+	$stmt = $db->prepare("DELETE from giohang WHERE MaNguoiDung=?");
+	$stmt->execute(array($userid));
+
+}
+function DSDonHang($userid)
+{
 	global $db;
 	$count =1;
-	$stmt = $db->prepare('SELECT dh.MaDonDatHang as madon, dh.TongThanhTien as tongtien, tt.TenTinhTrang FROM tinhtrang tt, donhang dh WHERE dh.MaTaiKhoan = ? and sp.MaSanPham = gh.MaSanPham');
+	$stmt = $db->prepare('SELECT dh.MaDonDatHang as madon, dh.TongThanhTien as tongtien, tt.TenTinhTrang as tinhtrang, dh.NgayLap as ngaylap FROM tinhtrang tt, dondathang dh WHERE dh.MaTaiKhoan = ? and dh.MaTinhTrang = tt.MaTinhTrang');
 	$stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$stmt->execute(array($userid));
 	$resultSet = $stmt->fetchAll();
@@ -273,32 +348,43 @@ function DSDonHang( $userid)
 	echo '
 	<tr>
 	<th scope="row">' .$count .'</th>
-	<td>' .$row["tensp"].'</td>
-	<td>*Hinh url*</td>
-	<td>' .$row["gia"].'</td>
-	<td>' .$row["soluong"].'</td>
+	<td>' .$row["madon"].'</td>
+	<td>' .$row["ngaylap"].'</td>
+	<td>' .$row["tongtien"].'</td>
+	<td>' .$row["tinhtrang"].'</td>
 			  <td>
-			<button type="button" class="btn btn-outline-primary">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"></path>
-				</svg>
-			</button>
-			<button type="button" class="btn btn-outline-primary">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"></path>
-				</svg>
-			</button>
-			<button type="button" class="btn btn-outline-primary">
-				<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					<path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"></path>
-				</svg>
-			</button>
+			  <a href="pDonHang.php?id='.$row["madon"].'" class="btn btn-outline-primary" role="button">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-square-fill" viewBox="0 0 16 16">
+					<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+		  		</svg>
+			</a>
 		  </td>
 	</tr>
 	';
 	$count +=1;
 	};
-	*/
+	
+}
+
+function ChiTietDonHang($id)
+{
+	global $db;
+	$stmt = $db->prepare('SELECT dh.MaDonDatHang as madon, dh.SoLuong as soluong, sp.GiaSanPham as gia, sp.TenSanPham as tensp from dondathang_sanpham dh, sanpham sp where dh.MaDonDatHang = ? and sp.MaSanPham = dh.MaSanPham ');
+	$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$stmt->execute(array($id));
+	$resultSet = $stmt->fetchAll();
+	foreach ($resultSet as $row) 
+	{
+	echo '
+	<tr>
+	<td>' .$row["madon"].'</td>
+	<td>' .$row["tensp"].'</td>
+	<td>*Hình*</td>
+	<td>' .$row["gia"].'</td>
+	<td>' .$row["soluong"].'</td>
+	</tr>
+	';
+	};
 }
 
 ?> 
