@@ -158,7 +158,7 @@ CREATE TABLE `sanpham` (
   `NgayNhap` datetime DEFAULT NULL,
   `SoLuongTon` int(11) DEFAULT NULL,
   `SoLuongBan` int(11) DEFAULT NULL,
-  `SoLuocXem` int(11) DEFAULT NULL,
+  `SoLuocYeuThich` int(11) DEFAULT NULL,
   `MoTa` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `BiXoa` tinyint(1) DEFAULT 0,
   `MaLoaiSanPham` int(11) NOT NULL,
@@ -169,7 +169,7 @@ CREATE TABLE `sanpham` (
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `sanpham` (`MaSanPham`, `TenSanPham`, `HinhURL`, `GiaSanPham`, `NgayNhap`, `SoLuongTon`, `SoLuongBan`, `SoLuocXem`, `MoTa`, `BiXoa`, `MaLoaiSanPham`, `MaHangSanXuat`) VALUES
+INSERT INTO `sanpham` (`MaSanPham`, `TenSanPham`, `HinhURL`, `GiaSanPham`, `NgayNhap`, `SoLuongTon`, `SoLuongBan`, `SoLuocYeuThich`, `MoTa`, `BiXoa`, `MaLoaiSanPham`, `MaHangSanXuat`) VALUES
 (4, 'Bill D. Beaver', 'Lamaze_Bill_D_Beaver.jpeg', 160000, '2012-08-25 00:00:00', 14, 9, 25, 'Hải lý bằng bông mịn, đẹp, dễ thương', 0, 1, 3),
 (5, 'Captain Calamari', 'Lamaze_Captain_Calamari.jpeg', 180000, '2012-05-01 00:00:00', 14, 6, 4, 'Bạch tuộc biển', 0, 1, 3),
 (7, 'Elephantunes', 'Lamaze_Elephantunes.jpeg', 480000, '2012-09-12 00:00:00', 25, 2, 9, 'Voi bằng bông, hồng xì tin...', 0, 1, 3),
