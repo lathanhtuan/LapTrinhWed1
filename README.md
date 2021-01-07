@@ -8,3 +8,9 @@
 
 22/12/2020 1660473 Update CSDL, thêm chức năng admin (Demo quản lý tài khoản)
 
+30/12/2020 18600310 Thêm chức năng sản phảm.
+
+8/1/2021 18600310 Update CSDL
+
+8/1/2021 18600310 thêm file img.
+
