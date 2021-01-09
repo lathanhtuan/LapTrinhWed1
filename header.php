@@ -9,76 +9,51 @@
 </head>
 
 <body>
-    <div class="container-fluid bg-info text-white w-100 p-3 h-200 bg-primary  bg-primary wight">
+    <div class=" bg-info text-white w-100 p-5 h-190" >
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-           
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto ">
-                    <li class="nav-item col-md-4<?php echo $title == 'Home' ? 'active' : ''; ?>">
-                    <!-- <nav class="nav nav-tabs">
-                        <a class="nav-link text-primary font-weight-bold "data-toggle="tab"
-                            href="index.php">Trang chủ
-                            <?php echo $title == 'Home' ? '<span class="sr-only">(current)</span>' : ''; ?></a>
-                    </nav> -->
+                    <li class="nav-item col-md-4
+                    <?php echo $title == 'Home' ? 'active' : ''; ?>">                   
                     </li>
-                    <!-- <div class="btn-group">
-                        <button class="btn btn-primary dropdown-toggle"
-                            type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown">
-                            Các loại sản phẩm
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">10 sản phẩm mới nhất</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">10 sản phẩm bán chạy</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">10 sản phẩm được yêu thích nhất </a>
-                    </div>
-</div> -->
+                   
 
                     <?php if ($currentUser): ?>
-                        <!-- <?php if ($currentUser): ?>
-                            <?php else: ?>
-                            <?php endif; ?> -->
-                    <!-- <li class="nav-item col-md-4<?php echo $title == 'Home' ? 'active' : ''; ?>">
-                    <nav class="nav nav-tabs">
-                        <a class="nav-link text-primary font-weight-bold "data-toggle="tab"
-                            href="index.php">Trang chủ<?php echo $title == 'Home' ? '<span class="sr-only">(current)</span>' : ''; ?></a>
-                    </nav> -->
-                    <a class="navbar-brand bg-light text-dark font-weight-bold " href="#" style="margin-left:-300px;font-size:35px;">TRANG CHỦ</a>
-                    </li>
-                    <li class="nav-item col-md-2">
-                        <a class="nav-link text-success font-weight-bold"href="Profile.php">Trang Cá nhân</a>     
-                    </li>
-                    <li class="nav-item col-md-4">
-                        <a class="nav-link text-success font-weight-bold" href="">Thay đổi thông tin cá nhân</a>     
-                    </li>
-                    <li class="nav-item col-md-2">
-                        <a class="nav-link text-success font-weight-bold"href="Profile.php">Sản Phẩm</a>     
-                    </li>
+                        
+                                   
+                          <a class=" col-md-4 " href="TrangChu.php" style="margin-left:-200px;">Trang chủ</a>
+                                       
+                        <li class="nav-item col-md-2">
+                            <a class="text-success"href="Profile.php"style="margin-left:-100px;">Trang Cá nhân</a>     
+                        </li>
+                        <li class="nav-item col-md-2">
+                            <a class="nav-link text-success font-weight-bold text-nowrap" href="sanpham.php">Sản Phẩm</a>     
+                        </li>
+                        <li class="nav-item col-md-2">
+                            <a class="nav-link text-success font-weight-bold text-nowrap" href="giohang.php">Giỏ hàng</a>     
+                        </li>
+                    
                 <!--TranDuyQuang link đến giỏ hàng -->
                     <!-- <li class="nav-item col-md-2">
                         <a class="nav-link text-success font-weight-bold"href="/GioHang/pDanhSach.php">Giỏ hàng</a>     
                     </li> -->
                    
-                    <li class="nav-item col-md-4">
-                        <a class="nav-link text-success font-weight-bold " href="">Xem danh sách các sản phẩm đã Yêu thích</a>     
+                    <li class="nav-item col-md-7">
+                        <a class="nav-link text-success font-weight-bold text-nowrap" href="sanphamdayeuthich.php">Xem danh sách các sản phẩm đã Yêu thích</a>     
                     </li>
                     <li class="nav-item col-md-2">
-                        <a class="nav-link text-success font-weight-bold " href="logout.php">Đăng xuất</a>
+                        <a class="nav-link text-success font-weight-bold text-nowrap" href="logout.php">Đăng xuất</a>
                     </li>
+                    <!-- </div> -->
+                   
                     <?php else: ?>
                         <a class="navbar-brand bg-light text-dark font-weight-bold bg-success text-white"style="margin-left:-100px;font-size:35px;" href="#">NGƯỜI DÙNG</a>
-                    <li class="nav-item col-md-4  <?php echo $title == 'Login' ? 'active' : ''; ?>">
-                    <nav class="nav nav-tabs">
+                    <li class="nav-item col-md-4 
+                     <?php echo $title == 'Login' ? 'active' : ''; ?>">
+                   
+                    </li>
+                    <li class="nav-item col-md-5" >
                         <a class="nav-link text-primary font-weight-bold"data-toggle="tab"
                             href="login.php">Đăng nhập<?php echo $title == 'Login' ? '<span class="sr-only">(current)</span>' : ''; ?></a>
-                    </nav>
                     </li>
                     <li class="nav-item col-md-4 <?php echo $title == 'Register' ? 'active' : ''; ?>">
                         <a class="nav-link   font-weight-bold "
@@ -90,7 +65,6 @@
                     </li>
                     <?php endif; ?>
                 </ul>
-            </div>
         </nav>
         <h1><?php echo $title?></h1>
         

@@ -1,0 +1,25 @@
+ 
+/* Căn các sản phẩm thành dạng lưới */
+.item {
+    padding: 1rem;
+    text-align: center;
+    color: #fff;
+      
+     
+  }
+  
+.wrapper {
+  display: grid;
+  grid-template-columns: 450px 350px 450px;
+  grid-template-rows: 400px 400px;
+}
+.x-nd
+{
+    padding: 2rem;
+    text-align: center;
+}
+.main-nd {
+    display: grid;
+    grid-template-columns: 10px 15px 15px;
+    grid-template-rows: 10px 10px;
+}

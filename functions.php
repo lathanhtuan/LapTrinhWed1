@@ -1,4 +1,9 @@
 <?php
+    // Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 
 
@@ -8,10 +13,11 @@ function findUserByUsername($username){
     $stmt->execute(array($username));
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
-function findUserById($mataikhoan){
+ 
+function findUserById($id){
     global $db;
     $stmt=$db->prepare("SELECT * FROM taikhoan WHERE MaTaiKhoan=?");
-    $stmt->execute(array($mataikhoan));
+    $stmt->execute(array($id));
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -23,21 +29,54 @@ function getCurrentUser(){
     }
     return null;
 }
-function createUser($username, $password,$name,$add,$tel,$mail,$bx,$ml)
+function createUser($username, $password,$name,$add, $tel, $mail, $bx,$ml,$mxn)
 {
+     
     global $db;
-    $stmt=$db->prepare("INSERT INTO taikhoan(TenDangNhap, MatKhau, TenHienThi, DiaChi, DienThoai, Email,BiXoa,MaLoaiTaiKhoan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute(array($username,$password,$name,$add,$tel,$mail,$bx,$ml));
+    $stmt=$db->prepare("INSERT INTO taikhoan(TenDangNhap, MatKhau,TenHienThi,DiaChi,DienThoai,Email,BiXoa,MaLoaiTaiKhoan,MaXacNhan) VALUES (?,?,?,?,?,?,?,?,?)");
+    $stmt->execute(array($username,$password,$name,$add, $tel, $mail, $bx,$ml,$mxn));
     return findUserById($db->lastInsertId());
 }
-// function ChangeUserPassword($email, $password){
-//     global $db;
-// 	$stmt = $db->prepare("UPDATE users SET password=? WHERE email=?");
-//     $stmt->execute (array($password,$email)); 
 
-// }
+function ChangeUserPassword($username, $password){
+    global $db;
+	$stmt = $db->prepare("UPDATE taikhoan SET MatKhau=? WHERE TenDangNhap=?");
+    $stmt->execute (array($password,$username)); 
 
+}
+//thay đổi mã xác nhận
+function ChangeCode($username,$newcode){
+    global $db;
+	$stmt = $db->prepare("UPDATE taikhoan SET MaXacNhan=? WHERE TenDangNhap=?");
+    $stmt->execute (array($newcode,$username)); 
 
+}
+function ChangeUserName($mtk,$name){
+    global $db;
+	$stmt = $db->prepare("UPDATE taikhoan SET TenHienThi=? WHERE MaTaiKhoan=?");
+    $stmt->execute (array($name,$mtk)); 
+
+}
+//Thay đổi địa chỉ
+function ChangeUserAd($mtk,$ad){
+    global $db;
+	$stmt = $db->prepare("UPDATE taikhoan SET DiaChi=? WHERE MaTaiKhoan=?");
+    $stmt->execute (array($ad,$mtk)); 
+
+}
+//Thay đổi điện thoại
+function ChangeUserTel($mtk,$tel){
+    global $db;
+	$stmt = $db->prepare("UPDATE taikhoan SET DienThoai=? WHERE MaTaiKhoan=?");
+    $stmt->execute (array($tel,$mtk)); 
+
+}//Thay đổi email
+function ChangeUserMail($mtk,$mail){
+    global $db;
+	$stmt = $db->prepare("UPDATE taikhoan SET Email=? WHERE MaTaiKhoan=?");
+    $stmt->execute (array($mail,$mtk)); 
+
+}
 function resizeImage($filename, $max_width, $max_height)
 {
   list($orig_width, $orig_height) = getimagesize($filename);
@@ -65,6 +104,7 @@ function resizeImage($filename, $max_width, $max_height)
 
   return $image_p;
 }
+
 function requireLoggedIn(){
     global $currentUser;
     if(!$currentUser){
@@ -72,17 +112,36 @@ function requireLoggedIn(){
         exit();
     }
 }
-function createPost($userId, $content) {
-    global $db;
-    $stmt = $db->prepare("INSERT INTO posts (userId, content, createAt) VALUE (?, ?, CURRENT_TIMESTAMP())");
-    $stmt->execute(array($userId, $content));
-    return $db->lastInsertId();
-}
+ function sendEmail($to,$subject,$content){
 
-function getNewFeedsForUserId($userId) {
-    global $db;
-    $stmt = $db->prepare("SELECT p.id, p.userId, u.username, p.content, p.createAt FROM posts as p LEFT JOIN users as u ON u.id = p.userId WHERE p.userId = $userId ORDER BY createAt DESC");
-    $stmt->execute();
-    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $posts;
+ $mail = new PHPMailer(true);
+
+try {
+    //Server settings
+                         // Enable verbose debug output
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'doanwebk18@gmail.com';                     // SMTP username
+    $mail->Password   = 'toilaai12@!';                               // SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+    $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+    //Recipients
+    $mail->setFrom('doanwebk18@gmail.com', 'huan doanweb');
+    $mail->addAddress($to);     // Add a recipient
+   
+
+   
+    // Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = $subject;
+    $mail->Body    = $content;
+    
+
+    $mail->send();
+    
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+ }

@@ -7,7 +7,7 @@
 
 <?php include 'header.php'; ?>
 
-<form action="changePassword.php" method="POST">
+<form action="changeProfile.php" method="POST">
     <div class="form-group">
         <label for="username">Tên</label>
         <input type="text" name="username" id="username" class="form-control" required>

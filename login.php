@@ -3,20 +3,21 @@
 
     $title = 'Đăng nhập';
 
-    if(isset($_POST['TenDangNhap']) && isset($_POST['MatKhau'])){
-        
-        $username = $_POST['TenDangNhap'];
-        $password = $_POST['MatKhau'];   
+    if(isset($_POST['username']) && isset($_POST['password'])){
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
         $user = findUserByUsername($username);
-                
+
         if(!$user){
-            $error = 'Không tìm thấy tài khoản!';
+            $error = 'Không tìm thấy tài khoản';
         } else {
-            if(password_verify($password,$user['MatKhau'])){
+            if($password!=$user['MatKhau']){
                 
-                $error = 'Mật khẩu không đúng';
+                $error = 'Mật khẩu sai';
             } else {
                 $_SESSION['userId'] = $user['MaTaiKhoan'];
+                
                 header('Location:index.php');
                 exit();
             }
@@ -35,24 +36,17 @@
 </div>
 <?php else: ?>
 <form action="login.php" method="POST">
-<div class="form-group">
-        <label  for="TenDangNhap">Tên đăng nhập</label>       
-        <input type="text" name="TenDangNhap" id="TenDangNhap" class="form-control" required>
+    <div class="form-group">
+        <label for="username">Tên</label>
+        <input type="text" name="username" id="username" class="form-control" required>
     </div>
     <div class="form-group">
-        <label for="MatKhau">Mật khẩu</label>
-        <input type="password" name="MatKhau" id="MatKhau" class="form-control" required>
+        <label for="password">Mật khẩu</label>
+        <input type="password" name="password" id="password" class="form-control" required>
     </div>
-    <!-- <div class="checkbox">
+    <button button type="submit" class="btn btn-primary">Đăng nhập</button>
 
-    <label>
 
-        <input type="checkbox"> Nhớ tài khoản
-
-    </label> -->
-
-</div>
-<button button type="submit" class="btn btn-primary">Đăng nhập</button>
 </form>
 <?php endif; ?>
 <?php include 'footer.php'; ?>

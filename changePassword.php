@@ -7,12 +7,12 @@ $title = 'Đổi mật khẩu';
     
     
 if(!isset($_SESSION["userID"])){
-    $user = findUserByemail($_POST['email']);
+    $user = findUserByUsername($_POST['username']);
     if(!$user){
-        $error = 'Không tìm thấy người dùng';
+        $error = 'Không tìm thấy tài khoản';
     }
     else{
-        $_SESSION['userID'] = $_POST['email'];
+        $_SESSION['userID'] = $_POST['username'];
     }
 }
 
@@ -20,14 +20,21 @@ if(!isset($_SESSION["userID"])){
 if (isset($_POST['password']) && isset($_POST['confirmpassword'])) {
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirmpassword'];
-    $exists = findUserByemail($_SESSION["userID"]);
+    $exists = findUserByUsername($_SESSION["userID"]);
+    $email=$exists['Email'];
+    
     if ($exists) {
         if ($password != $confirmpassword) {
-            echo '<div class="alert alert-danger" role="alert">' . 'Password incorrect' . '</div>';
+            echo '<div class="alert alert-danger" role="alert">' . 'Nhập lại mật khẩu mới chưa đúng' . '</div>';
+             
         } else {
-            echo '<div class="alert alert-success" role="alert">' . 'Success' . '</div>';
-            ChangeUserPassword($_SESSION["userID"], password_hash($password, PASSWORD_DEFAULT));
-            unset($_SESSION['userID']);
+            echo '<div class="alert alert-success" role="alert">' . 'Đổi mật khẩu thành công!' . '</div>';
+            $newcode=strtoupper(bin2hex(random_bytes(4)));
+            sendEmail($email,'huan doanweb','Mã xác nhận: '.$newcode);//gửi mã xác nhận thay đổi pass
+            ChangeCode($_SESSION["userID"],$newcode);//cập nhập lại mã xác nhận để đổi pass
+            ChangeUserPassword($_SESSION["userID"], $password);
+            header('Location:maxacnhan.php');
+             
         }
     }
 }
@@ -37,23 +44,26 @@ if (isset($_POST['password']) && isset($_POST['confirmpassword'])) {
 
 <?php if (isset($error)): ?>
 <div class="alert alert-danger" role="alert">
-    <?php echo 'Not found user: '. $_POST['email']; ?>
+    <?php echo 'Not found user: '. $_POST['username']; ?>
 </div>
 <?php else: ?>
     <div class="content">
-    <?php if (isset($_POST['email'])){ ?>
+    <?php if (isset($_POST['username'])){ ?>
         <div class="alert alert-success" role="alert">
-            Hello <?php echo $_POST['email'];  ?> Mời bạn đổi mật khẩu!
+            Hi <?php echo $_POST['username'];  ?> Mời bạn đổi mật khẩu!
         </div>
         <form action="changePassword.php" method="POST">
-        <div class="form-group col-sm-6">
+        <div class="form-group">
             <label for="password">Mật khẩu mới</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="Enter email"  required>
+            <input type="password" name="password" id="password" class="form-control" title="phải có ít nhất 7 kí tự và có ít nhất 1 chữ hoa hoặc 1 chữ thường hoặc 1 số hoặc 1 kí tự đặc biệt: ~<>?_+=!@#$%^&*(){}|;:,." name="MatKhau" id="MatKhau" onkeyup="checkPassword()"
+                                pattern="[~<>?_+=!@#$%^&*(){}|;:,.a-zA-Z0-9]{7,20}" required>
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group">
             <label for="confirmpassword">Nhập lại mật khẩu</label>
-            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Enter new email"  required>
+            <input type="password" name="confirmpassword" id="confirmpassword" class="form-control" title="phải có ít nhất 7 kí tự và có ít nhất 1 chữ hoa hoặc 1 chữ thường hoặc 1 số hoặc 1 kí tự đặc biệt: ~<>?_+=!@#$%^&*(){}|;:,." name="MatKhau" id="MatKhau" onkeyup="checkPassword()"
+                                pattern="[~<>?_+=!@#$%^&*(){}|;:,.a-zA-Z0-9]{7,20}" required>
         </div>
+
         <button button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
     </form>
     <?php } ?>
