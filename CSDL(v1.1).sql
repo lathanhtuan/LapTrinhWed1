@@ -209,7 +209,14 @@ INSERT INTO `SanPham` (`MaSanPham`, `TenSanPham`, `HinhURL`, `GiaSanPham`, `Ngay
 (46, 'Đồ chơi trẻ em lắp ráp Biệt Đội S.W.A.T Lele Brother 8522','42.jpg',600000,'2012-10-01 00:00:00',10,6,20,'là bộ đồ chơi giáo dục phát triển tư duy trẻ em mô phỏng đội đặc nhiệm swat hiện đại với các chú lính nhân vật lego cực dễ thương trên những phương tiện tuần tra',0,3,4),
 (47, 'Bộ lắp ráp Xe đua Công thức 1','43.jpg',500000, '2012-10-01 00:00:00',2,3,10,'được lấy ý tưởng từ các siêu xe trong những giải đua công thức 1',0,3,2),
 (48, 'Đồ chơi Lắp Ráp Robot Sandstorm Lele Brother - Transformer Fighter 3in1 8279','44.jpg',500000,'2012-10-01 00:00:00',2,1,5,'được chế tạo hoàn toàn từ chất liệu nhựa PET cao cấp, độ bền và chống biến dạng khi va đập tốt',0,3,2),
-(49, 'Bộ lắp ráp đội thi công công trình Construction Team 6in1 Lele Brother 8520','45.jpg',100000,'2012-10-01 00:00:00',1,0,2,'được lấy ý tưởng từ đội ngũ các chú kĩ sư xây dựng thành phố',0,3,1);
+(49, 'Bộ lắp ráp đội thi công công trình Construction Team 6in1 Lele Brother 8520','45.jpg',100000,'2012-10-01 00:00:00',1,0,2,'được lấy ý tưởng từ đội ngũ các chú kĩ sư xây dựng thành phố',0,3,1),
+(50, 'THẢM TẬP YOGA TPE','46.jpg',125000,'2012-10-01 00:00:00',1,0,14,'Thảm tập yoga TPE Cao Cấp 2 lớp 6MM bền chắc','BinhLuan 46',0,3,1),
+(51, 'Giày thể thao SUP','47.jpg',160000,'2012-10-01 00:00:00',1,0,10,'Giày Thể Thao Nam Ngắn Cổ - Thiết Kế Đế Nén Khí Êm Chân, Tăng Chiều Cao - Lót Giày Bằng Lưới Thoáng Khí Giúp Chân Luôn Khô Thoáng - Full Màu, Full Size - GTTN-61','BinhLuan 47',0,3,1),
+(52, 'Áo sơmi NOMOUS ESSENTIALS ','48.jpg',150000,'2012-10-01 00:00:00',1,0,20,' Dòng sơmi kẻ caro với chất vải linen mặc rất thoải mái & thoáng mát. Form ôm vừa gọn. 3 màu trẻ trung.','BinhLuan 48',0,3,1),
+(53, 'Áo Sơmi kaki T.MAN box bag','49.jpg',200000,'2012-10-01 00:00:00',1,0,0,'Sơmi kaki TMAN tay ngắn với chất vải mềm mịn, tông màu trẻ trung.Form slim fit','BinhLuan 49',0,3,1),
+(54, 'Áo sơmi G.2OOO Slim fit','50.jpg',240000,'2012-10-01 00:00:00',1,0,0,' Sơmi G2K dòng modal fabric vừa lên kệ với chất liệu vải từ sợi modal mềm mịn, thoáng mát.','BinhLuan 50',0,3,1),
+(55, 'Áo sơmi ICON DENIM slim','51.jpg',245000,'2012-10-01 00:00:00',1,0,15,'Dòng sơmi với chất vải mới nhất vừa lên kệ. Sợi vải nhuyễn, có thun co giãn nên mặc khá thoải mái.','BinhLuan 51',0,3,1);
+
 -- --------------------------------------------------------
 
 --
