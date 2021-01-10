@@ -146,7 +146,7 @@ INSERT INTO `loaitaikhoan` (`MaLoaiTaiKhoan`, `TenLoaiTaiKhoan`) VALUES
 --
 
 CREATE TABLE `sanpham` (
-  `MaSanPham` int(11) NOT NULL,
+  `MaSanPham` int(11) NOT NULL AUTO_INCREMENT,
   `TenSanPham` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `HinhURL` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `GiaSanPham` int(11) DEFAULT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE `sanpham` (
 -- Dumping data for table `sanpham`
 --
 
-INSERT INTO `SanPham` (`MaSanPham`, `TenSanPham`, `HinhURL`, `GiaSanPham`, `NgayNhap`, `SoLuongTon`, `SoLuongBan`, `SoLuocYêuThích`, `MoTa`, `BiXoa`, `MaLoaiSanPham`, `MaHangSanXuat`) VALUES
+INSERT INTO `SanPham` (`MaSanPham`, `TenSanPham`, `HinhURL`, `GiaSanPham`, `NgayNhap`, `SoLuongTon`, `SoLuongBan`, `SoLuocYeuThich`, `MoTa`, `BiXoa`, `MaLoaiSanPham`, `MaHangSanXuat`) VALUES
 (4, 'Bill D. Beaver', '1.jpg', 160000, '2012-08-25 00:00:00', 14, 9, 25, 'Hải lý bằng bông mịn, đẹp, dễ thương', 0, 3, 3),
 (5, 'Captain Calamari', '2.jpg', 180000, '2012-05-01 00:00:00', 14, 6, 4, 'Bạch tuộc biển', 0, 3, 3),
 (7, 'Elephantunes', '3.jpg', 480000, '2012-09-12 00:00:00', 25, 2, 9, 'Voi bằng bông, hồng xì tin...', 0, 3, 3),
@@ -195,7 +195,7 @@ INSERT INTO `SanPham` (`MaSanPham`, `TenSanPham`, `HinhURL`, `GiaSanPham`, `Ngay
 (32, 'Micro Chinook', '28.jpg', 410000, '2012-10-06 00:00:00', 3, 0, 0, 'Máy bay trực thăng vận tải, đa dụng, có thể vận chuyển được xe tăng', 0, 3, 1),
 (33, 'X1 - 01', '29.jpg', 600000, '2012-10-06 00:00:00', 4, 0, 15, 'Máy bay lên thẳng 4 cánh quạt, đa dụng và dễ dàng điều khiển vượt qua mọi địa hình', 0, 3, 1),
 (34, 'Áo thun nam Asos màu xanh','30.jpg ',450000,'2012-10-06 00:00:00',1, 0, 10,'Áo thun nam Asos màu xanh lá mạ, cổ chữ V kết hợp dáng ôm nhẹ nam tính, chất cotton cao cấp thoáng mát',0, 1, 1 ),
-(35, 'Váy Sue Wong ren đen','31.jpg',500000,'2012-10-06 00:00:00',2.1.15.'Thiết kế sang trọng, đẳng cấp đến từng chi tiết nhỏ nhất',0,5,3),
+(35, 'Váy Sue Wong ren đen','31.jpg',500000,'2012-10-06 00:00:00',2,1,15,'Thiết kế sang trọng, đẳng cấp đến từng chi tiết nhỏ nhất',0,5,3),
 (36, 'Váy voan FRENCH CONNECTION','32.jpg',650000,'2012-10-01 00:00:00',5,1,10,'Cổ tròn, không tay, dải eo ngang màu đen tạo điểm nhấn cho cả thiết kế thêm hoàn hảo',0,5,3),
 (37, 'Quần giữ nhiệt nam manhattan','33.jpg',530000, '2012-10-01 00:00:00',1,0,2,'Quần có thế mặc trong quần bò, quần âu,...giữ cho đôi chân của bạn luôn ấm áp và thoải mái',0,2,1),
 (38, 'Áo Giữ Nhiệt Kim Tuyến Cổ Cao','34.jpg',120000,'2012-10-01 00:00:00',1,2,10,'Độ co giãn, đàn hồi cao mang đến sự thoải mái khi vận động',0,1,3),
